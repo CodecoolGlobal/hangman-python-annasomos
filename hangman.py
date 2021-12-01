@@ -1,6 +1,6 @@
 from typing import Text
 import random
-
+import os
 
 #create separate lists for countries and capitals
 c = open("countries-and-capitals.txt")
@@ -28,13 +28,16 @@ for index,character in enumerate(secret):
 
 history = set()
 
+def clearscreen():
+    os.system("clear")
 
 def play(secret, lives, display):
-    while lives > 1:
+    while lives > 0:
         print(" ".join(display))
         guess_is_invalid = True
         while guess_is_invalid:
             guess = input("Enter a letter: ").upper()
+            clearscreen()
             if guess == "QUIT":
                 guess_is_invalid = False
             elif len(guess) == 1 and guess.isalpha() == True and guess != "":
@@ -45,7 +48,7 @@ def play(secret, lives, display):
                 print("Please only enter 1 letter from the alphabet!")
                 continue
         if guess == "QUIT":
-            return "Bye"
+            return "Good-bye!"
         else:
             if guess in history:
                 print(f"You already tried {guess}. These are your guesses: {history}.")
@@ -66,7 +69,27 @@ def play(secret, lives, display):
                     return f"Congratulations! The secret was {secret}."
     return f"You Died!!! The secret was {secret}."
 
+name = input("Please enter your name: ")
+level_is_invalid = True
+while level_is_invalid:
+    level = input(f"Hello, {name}! Let's play hangman! Please choose level EASY or HARD: ").upper()
+    clearscreen()
+    if level == "QUIT":
+        level_is_invalid = False
+    elif level == "EASY" or level == "HARD":
+        level_is_invalid = False
+    else: 
+        level_is_invalid = True
+    if level_is_invalid:
+        print("Please type 'EASY' or 'HARD' to continue.")
+        continue
+    if level == "QUIT":
+        print("Good-bye!")
+        quit()
+    elif level == "EASY":
+        lives = 12
+        play(secret, lives, showsecret)
+    elif level == "HARD":
+        lives = 8
+        play(secret, lives, showsecret)
 
-lives = 15
-akarmi = play(secret, lives, showsecret)
-print(akarmi)
