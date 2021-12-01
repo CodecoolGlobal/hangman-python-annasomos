@@ -26,15 +26,15 @@ for index,character in enumerate(secret):
     elif character == "-":
         showsecret[index] = "-"
 
-history = []
+history = set()
 
 
 def play(secret, lives, display):
-    while lives > 0:
+    while lives > 1:
         print(" ".join(display))
-        guess = input("Enter a letter: ").upper()
         guess_is_invalid = True
         while guess_is_invalid:
+            guess = input("Enter a letter: ").upper()
             if guess == "QUIT":
                 guess_is_invalid = False
             elif len(guess) == 1 and guess.isalpha() == True and guess != "":
@@ -43,23 +43,30 @@ def play(secret, lives, display):
                 guess_is_invalid = True
             if guess_is_invalid:
                 print("Please only enter 1 letter from the alphabet!")
-                break
+                continue
         if guess == "QUIT":
-            print("Good-bye!")
-            exit()
-        elif guess in secret:
-            new_show = ""
-            for index, letter in enumerate(secret):
-                if letter == guess:
-                    new_show += guess
-                else:
-                    new_show += display[index]
-            display = new_show
-            lives -=1
-            print(f"Yay! {guess} is in the secret word.")
-        elif not guess in secret:
-            history.append(guess)
-            lives -= 1
-        
+            return "Bye"
+        else:
+            if guess in history:
+                print(f"You already tried {guess}. These are your guesses: {history}.")
+            else:
+                history.add(guess)
+                if guess in secret:
+                    new_show = ""
+                    for index, letter in enumerate(secret):
+                        if letter == guess:
+                            new_show += guess
+                        else:
+                            new_show += display[index]
+                    display = new_show
+                    print(f"Yay! {guess} is in the secret word.")
+                elif guess not in secret:
+                    lives -= 1
+                if display == secret:
+                    return f"Congratulations! The secret was {secret}."
+    return f"You Died!!! The secret was {secret}."
+
+
 lives = 15
-play(secret, lives, showsecret)
+akarmi = play(secret, lives, showsecret)
+print(akarmi)
