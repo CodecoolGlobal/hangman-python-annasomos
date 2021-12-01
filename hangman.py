@@ -48,7 +48,7 @@ def play(secret, lives, display):
                 print("Please only enter 1 letter from the alphabet!")
                 continue
         if guess == "QUIT":
-            return "Good-bye!"
+            print("Good-bye!")
         else:
             if guess in history:
                 print(f"You already tried {guess}. These are your guesses: {history}.")
@@ -66,13 +66,18 @@ def play(secret, lives, display):
                 elif guess not in secret:
                     lives -= 1
                 if display == secret:
-                    return f"Congratulations! The secret was {secret}."
-    return f"You Died!!! The secret was {secret}."
+                    clearscreen()
+                    print(f"Congratulations! The secret was {secret}.")
+                    quit()
+    print(f"YOU'RE DEAD! The secret was {secret}.")
+    quit()
+
 
 name = input("Please enter your name: ")
+print(f"Hello, {name}! Let's play hangman!")
 level_is_invalid = True
 while level_is_invalid:
-    level = input(f"Hello, {name}! Let's play hangman! Please choose level EASY or HARD: ").upper()
+    level = input("Please choose level EASY or HARD: ").upper()
     clearscreen()
     if level == "QUIT":
         level_is_invalid = False
@@ -85,7 +90,6 @@ while level_is_invalid:
         continue
     if level == "QUIT":
         print("Good-bye!")
-        quit()
     elif level == "EASY":
         lives = 12
         play(secret, lives, showsecret)
