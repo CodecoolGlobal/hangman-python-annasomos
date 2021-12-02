@@ -73,8 +73,7 @@ def play(secret, lives, display):
                     print(hangman[lives])
                 if display == secret:
                     clearscreen()
-                    playsound("yay.mp3", False)
-                    return f"{hangman[lives]}\n{congrat}\nThe secret was {secret}."
+                    return print(f"{hangman[lives]}\n{congrat}\nThe secret was {secret}."), playsound("yay.mp3")
     return print(f"{dead}\nThe secret was {secret}"), playsound("die.mp3")
 
 
