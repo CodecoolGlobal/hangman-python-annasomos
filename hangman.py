@@ -85,7 +85,7 @@ name = input("Please enter your name: ")
 print(f"Hello, {name}! Let's play hangman!")
 level_is_invalid = True
 while level_is_invalid:
-    level = input("Please choose level EASY or HARD: ").upper()
+    level = input("Please choose level!\n\nEASY: 12 lives, only countries.\nHARD: 8 lives, countries and capitals\n\nEASY or HARD: ").upper()
     clearscreen()
     if level == "QUIT":
         level_is_invalid = False
