@@ -1,7 +1,7 @@
 from typing import Text
 import random
 import os
-from hangman_ascii_art import hangman
+from hangman_ascii_art import hangman, hangmantext
 
 
 c = open("countries-and-capitals.txt")
@@ -9,7 +9,6 @@ all = c.readlines()
 history = set()
 #egy=meghaltal - 0.index
 #tizenharom=minden eleted megvan meg - 12.index
-hangmantext = "HANGMAN"
 
 
 def secrethard():
