@@ -54,7 +54,7 @@ def play(secret, lives, display):
             return goodbye
         else:
             if guess in history:
-                print(f"{hangman[lives]}\nYou already tried {guess}. These are your guesses: {history}.")
+                print(f"You already tried {guess}. These are your guesses: {history}.\n{hangman[lives]}")
             else:
                 history.add(guess)
                 if guess in secret:
