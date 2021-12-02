@@ -1,7 +1,7 @@
 from typing import Text
 import random
 import os
-from hangman_ascii_art import hangman, hangmantext
+from hangman_ascii_art import hangman, hangmantext, goodbye, dead, congrat, fool
 
 
 c = open("countries-and-capitals.txt")
@@ -48,10 +48,10 @@ def play(secret, lives, display):
             else:
                 guess_is_invalid = True
             if guess_is_invalid:
-                print("Please only enter 1 letter from the alphabet!")
+                print(f"{fool}\nPlease only enter 1 letter from the alphabet!")
                 continue
         if guess == "QUIT":
-            return "Good-bye!"
+            return goodbye
         else:
             if guess in history:
                 print(f"{hangman[lives]}\nYou already tried {guess}. These are your guesses: {history}.")
@@ -72,8 +72,8 @@ def play(secret, lives, display):
                     print(hangman[lives])
                 if display == secret:
                     clearscreen()
-                    return f"{hangman[lives]}\nCongratulations! The secret was {secret}."
-    return f"YOU'RE DEAD! The secret was {secret}."
+                    return f"{hangman[lives]}\n{congrat}\nThe secret was {secret}."
+    return f"{dead}\nThe secret was {secret}."
 
 
 print(hangmantext)
@@ -93,7 +93,7 @@ while level_is_invalid:
         print("Please type 'EASY' or 'HARD' to continue.")
         continue
     if level == "QUIT":
-        print("Good-bye!")
+        print(goodbye)
     elif level == "EASY":
         print(hangman[12])
         lives = 12
