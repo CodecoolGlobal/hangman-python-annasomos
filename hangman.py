@@ -2,13 +2,11 @@ from typing import Text
 import random
 import os
 from hangman_ascii_art import hangman, hangmantext, goodbye, dead, congrat, fool
-
+from playsound import playsound
 
 c = open("countries-and-capitals.txt")
 all = c.readlines()
 history = set()
-#egy=meghaltal - 0.index
-#tizenharom=minden eleted megvan meg - 12.index
 
 
 def secrethard():
@@ -48,6 +46,7 @@ def play(secret, lives, display):
             else:
                 guess_is_invalid = True
             if guess_is_invalid:
+                playsound("foolsound.wav",False)
                 print(f"{fool}\nPlease only enter 1 letter from the alphabet!")
                 continue
         if guess == "QUIT":
@@ -65,15 +64,20 @@ def play(secret, lives, display):
                         else:
                             new_show += display[index]
                     display = new_show
+                    playsound("right.wav", False)
                     print(f"{hangman[lives]}\nYay! {guess} is in the secret word.")
                 elif guess not in secret:
+                    playsound("wrong.mp3", False)
                     print(f"These are your guesses: {history}.")
                     lives -= 1
                     print(hangman[lives])
                 if display == secret:
                     clearscreen()
+                    playsound("yay.mp3", False)
                     return f"{hangman[lives]}\n{congrat}\nThe secret was {secret}."
-    return f"{dead}\nThe secret was {secret}."
+    return print(f"{dead}\nThe secret was {secret}"), playsound("die.mp3")
+
+
 
 
 print(hangmantext)
