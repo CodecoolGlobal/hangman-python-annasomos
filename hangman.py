@@ -2,31 +2,31 @@ from typing import Text
 import random
 import os
 
-#create separate lists for countries and capitals
+
 c = open("countries-and-capitals.txt")
 all = c.readlines()
-
-#countries = []
-#capitals = []
-#for line in countries_capitals:
-#    countries.append(line.split(" | ")[0])
-#    capitals.append(line.strip())
-
-#6-8-12 lives - hard - medium - easy
-#spaceket kiteszi ha van benne, ugy vonalkaz (pl. _ _ _  _ _ _ _ _  _ _)
-
-randomline = random.choice(all)
-secretlist = randomline.split(" | ")
-secret = random.choice(secretlist).strip().upper()
-showsecret = list("_" * len(secret))
-
-for index,character in enumerate(secret):
-    if character == " ":
-        showsecret[index] = " "
-    elif character == "-":
-        showsecret[index] = "-"
-
 history = set()
+
+
+def secrethard():
+    randomline = random.choice(all)
+    secretlist = randomline.split(" | ")
+    return random.choice(secretlist).strip().upper()
+
+def secreteasy():
+    randomline = random.choice(all)
+    secretlist = randomline.split(" | ")
+    return secretlist[0].strip().upper()
+
+def showsecret():
+    showsecret = list("_" * len(secret))
+
+    for index,character in enumerate(secret):
+        if character == " ":
+            showsecret[index] = " "
+        elif character == "-":
+            showsecret[index] = "-"
+    return showsecret
 
 def clearscreen():
     os.system("clear")
@@ -91,10 +91,14 @@ while level_is_invalid:
         print("Good-bye!")
     elif level == "EASY":
         lives = 12
-        result = play(secret, lives, showsecret)
+        secret = secreteasy()
+        showsecret_easy = showsecret()
+        result = play(secret, lives, showsecret_easy)
         print(result)
     elif level == "HARD":
         lives = 8
-        result = play(secret, lives, showsecret)
+        secret = secrethard()
+        showsecret_hard = showsecret()
+        result = play(secret, lives, showsecret_hard)
         print(result)
 
