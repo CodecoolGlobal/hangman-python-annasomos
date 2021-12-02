@@ -1,11 +1,15 @@
 from typing import Text
 import random
 import os
+from hangman_ascii_art import hangman
 
 
 c = open("countries-and-capitals.txt")
 all = c.readlines()
 history = set()
+#egy=meghaltal - 0.index
+#tizenharom=minden eleted megvan meg - 12.index
+hangmantext = "HANGMAN"
 
 
 def secrethard():
@@ -51,7 +55,7 @@ def play(secret, lives, display):
             return "Good-bye!"
         else:
             if guess in history:
-                print(f"You already tried {guess}. These are your guesses: {history}.")
+                print(f"{hangman[lives]}\nYou already tried {guess}. These are your guesses: {history}.")
             else:
                 history.add(guess)
                 if guess in secret:
@@ -62,16 +66,18 @@ def play(secret, lives, display):
                         else:
                             new_show += display[index]
                     display = new_show
-                    print(f"Yay! {guess} is in the secret word.")
+                    print(f"{hangman[lives]}\nYay! {guess} is in the secret word.")
                 elif guess not in secret:
                     print(f"These are your guesses: {history}.")
                     lives -= 1
+                    print(hangman[lives])
                 if display == secret:
                     clearscreen()
-                    return f"Congratulations! The secret was {secret}."
+                    return f"{hangman[lives]}\nCongratulations! The secret was {secret}."
     return f"YOU'RE DEAD! The secret was {secret}."
 
 
+print(hangmantext)
 name = input("Please enter your name: ")
 print(f"Hello, {name}! Let's play hangman!")
 level_is_invalid = True
@@ -90,12 +96,14 @@ while level_is_invalid:
     if level == "QUIT":
         print("Good-bye!")
     elif level == "EASY":
+        print(hangman[12])
         lives = 12
         secret = secreteasy()
         showsecret_easy = showsecret()
         result = play(secret, lives, showsecret_easy)
         print(result)
     elif level == "HARD":
+        print(hangman[8])
         lives = 8
         secret = secrethard()
         showsecret_hard = showsecret()
