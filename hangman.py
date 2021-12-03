@@ -65,6 +65,7 @@ def play(secret, lives, display):
                             new_show += display[index]
                     display = new_show
                     playsound("right.wav", False)
+                    print(f"These are your guesses: {history}.")
                     print(f"{hangman[lives]}\nYay! {guess} is in the secret word.")
                 elif guess not in secret:
                     playsound("wrong.mp3", False)
@@ -83,6 +84,7 @@ def play(secret, lives, display):
 
 
 
+clearscreen()
 print(hangmantext)
 name = input("Please enter your name: ")
 print(f"Hello, {name}! Let's play hangman!")
