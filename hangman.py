@@ -73,8 +73,12 @@ def play(secret, lives, display):
                     print(hangman[lives])
                 if display == secret:
                     clearscreen()
-                    return print(f"{hangman[lives]}\n{congrat}\nThe secret was {secret}."), playsound("yay.mp3")
-    return print(f"{dead}\nThe secret was {secret}"), playsound("die.mp3")
+                    print(f"{hangman[lives]}\n{congrat}\nThe secret was {secret}.")
+                    playsound("yay.mp3")
+                    break
+    if lives == 0:
+        print(f"{dead}\nThe secret was {secret}")
+        playsound("die.mp3")
 
 
 
@@ -86,15 +90,18 @@ level_is_invalid = True
 while level_is_invalid:
     level = input("Please choose level!\n\nEASY: 12 lives, only countries.\nHARD: 8 lives, countries and capitals\n\nEASY or HARD: ").upper()
     clearscreen()
+
     if level == "QUIT":
         level_is_invalid = False
     elif level == "EASY" or level == "HARD":
         level_is_invalid = False
     else: 
         level_is_invalid = True
+
     if level_is_invalid:
         print("Please type 'EASY' or 'HARD' to continue.")
         continue
+
     if level == "QUIT":
         print(goodbye)
     elif level == "EASY":
@@ -103,12 +110,10 @@ while level_is_invalid:
         secret = secreteasy()
         showsecret_easy = showsecret()
         result = play(secret, lives, showsecret_easy)
-        print(result)
     elif level == "HARD":
         print(hangman[8])
         lives = 8
         secret = secrethard()
         showsecret_hard = showsecret()
         result = play(secret, lives, showsecret_hard)
-        print(result)
 
